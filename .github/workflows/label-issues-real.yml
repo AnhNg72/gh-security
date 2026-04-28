@@ -7,10 +7,8 @@ jobs:
   assign-label:
     permissions: write-all
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Assign label 2
         if: contains(github.event.issue.title, 'bug')
         run: |
-          curl -X POST --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels -H 'authorization: Bearer ${ GH_TOKEN }' -H 'content-type: application/json' -d '{"labels": ["bug"]}' --fail
+          curl -X POST --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' -H 'content-type: application/json' -d '{"labels": ["bug"]}' --fail
